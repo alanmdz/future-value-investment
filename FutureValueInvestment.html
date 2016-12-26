@@ -1,0 +1,91 @@
+
+
+<HTML>
+    <!-- Alan Mendoza
+         CSCI 6314
+         Assignment 3
+     !-->
+<HEAD>
+  <li><a href = "index.html">Home</a></li>
+<TITLE>Future value of an investment</TITLE>
+
+</HEAD>
+<BODY>
+
+    <div id="myTable">
+    </div>
+    <SCRIPT LANGUATE = "JavaScript">
+        var age, initial, deposit, rate;
+        var beginningBalance, endingBalance;
+        var tenYears = 0;
+        var sixYears = 0;
+        var yearlyDeposit = 0;
+        var interestGenerated = 0;
+
+        getdata();
+
+        if (rate >1) rate = rate/100; //convert rate to fraction just in case.
+
+        document.writeln("Initial Investment: $", initial);
+        document.writeln("<BR>Interest Rate: ", rate,"%");
+        document.writeln("<BR>Deposit every 30 days: $", deposit);
+        document.writeln("<BR>Investment started: ", age);
+
+        beginningBalance = endingBalance = initial;
+
+        var myTable = "<table border='2' style='width:35%'>";
+        myTable+="<tr><th>Age</th><th>Beginning Balance</th><th>Interest</th><th>Deposits</th><th>Ending Balance</th></tr>";
+
+        for (var a = age; a <= 65; a++)
+        {
+            beginningBalance = endingBalance;
+
+            if(tenYears == 10)
+            {
+                tenYears = 0;
+            }
+
+            if(sixYears == 6)
+            {
+                yearlyDeposit = deposit * 13;
+                sixYears = 0;
+            }
+
+            else
+            {
+                yearlyDeposit = 12 * deposit;
+            }
+
+            interestGenerated = rate * beginningBalance;
+            endingBalance = parseFloat(beginningBalance + yearlyDeposit + interestGenerated);
+
+            tenYears++;
+            sixYears++;
+
+            myTable += "<tr><td>"+a+"</td><td>"+beginningBalance.toFixed(2)+"</td><td>"+interestGenerated.toFixed(2)+"</td><td>"+yearlyDeposit+"</td><td>"+endingBalance.toFixed(2)+"</td></tr>";
+
+        }
+    myTable += "</table>";
+
+    document.write("<BR>" + myTable);
+
+
+
+    function getdata()
+    {
+        document.writeln("<BR> This program calculates your total assets at retirment (age 65)");
+        document.writeln("<BR> given initial deposit, amount of deposit every 30 days, ");
+        document.writeln("<BR> interest rate and your current age.");
+        document.writeln("<BR>---------------------- data entry ---------------------------<BR>");
+        age=parseInt(window.prompt("How old are you (must be below 65)?---------------->  "));
+
+        initial=parseFloat(window.prompt( "What is your initial deposit?---------------------->  "));
+        deposit=parseFloat(window.prompt( "Amount you agree to deposit every 30 days?--------->  "));
+        rate=parseFloat(window.prompt( "What would be your expectation of interest or growth? "));
+        return initial, deposit, rate, age;
+    }
+    </Script>
+</BODY>
+
+
+</HTML>
